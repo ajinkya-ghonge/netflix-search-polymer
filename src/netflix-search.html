@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="../bower_components/polymer/polymer.html" rel="import">
+	<link href="netflix-search-criteria.html" rel="import">
+	<link href="netflix-search-result.html" rel="import">
+    <!-- Element Imports -->
+</head>
+
+<dom-module id="netflix-search">
+  <style>
+    /* CSS rules for your element */
+  </style>
+  <template>
+   <netflix-search-criteria criteria={{content}}></netflix-search-criteria>
+   <template is="dom-if" if="{{content.length}}">
+   <netflix-search-result criteria="{{content}}"></netflix-search-result>
+   </template>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: "netflix-search",
+    properties: {
+	content: {
+			type: String,
+			notify: true,
+			reflecToAttribute: true
+		}
+	 },
+    ready: function(e){
+        
+    }
+  });
+</script>

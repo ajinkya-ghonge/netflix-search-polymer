@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="../bower_components/polymer/polymer.html" rel="import">
+	<link href="../bower_components/iron-ajax/iron-ajax.html" rel="import">
+    <!-- Element Imports -->
+</head>
+
+<dom-module id="netflix-search-result">
+  <style>
+    /* CSS rules for your element */
+  </style>
+  <template>
+   <iron-ajax
+    id="requestRepos"
+    url="https://community-netflix-roulette.p.mashape.com/api.php"
+	headers='{"X-Mashape-Key":"T8EtSZS7LUmshwix144hnbd3Dv7lp1tG0cSjsncMbyx8cBkGWl"}'
+    params='{{getParams}}'
+    handle-as="json"
+    on-response="handleResponse"></iron-ajax>
+  <template is="dom-repeat" items="{{results}}" elevation="1">
+     <div>Title: <span>{{item.show_title}} Year: {{item.release-year}}</div>
+	 <div> <img src="{{item.poster}}" style="width:304px;height:228px;">
+  </template>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: "netflix-search-result",
+    properties: {
+         results:{
+		 type: Array
+		 },
+		 criteria:{
+		 type: String,
+		 observer: '_isCriteriaChanged'
+		 },
+		 attr:{
+		 type: String
+		 },
+		 attrVal:{
+		 type: String
+		 },
+		 getParams: {
+		 type: String,
+		 computed: 'processParams(attr, attrVal)'
+		 }
+        },
+	handleResponse: function (data) {
+        this.results = data.detail.response;
+     },
+	_isCriteriaChanged: function (criteria) {
+        var params = criteria.split("=");
+		this.attr = params[0];
+		this.attrVal = params[1];	
+     },
+    processParams: function (attr, attrVal) {
+        return {
+		actor : attrVal
+		};
+     },
+	ready: function(){
+	 var params = this.criteria.split("=");
+		this.attr = params[0];
+		
+		this.attrVal = params[1];
+		console.log("Coming here " + this.attr.length + " Content " + this.attrVal.length);
+	this.$.requestRepos.generateRequest();
+    }
+  });
+</script>

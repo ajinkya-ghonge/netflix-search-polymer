@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="../bower_components/polymer/polymer.html" rel="import">
+	<link href="../bower_components/paper-material/paper-material.html" rel="import">
+	<link href="../bower_components/paper-dropdown-menu/paper-dropdown-menu.html" rel="import">
+	<link href="../bower_components/paper-listbox/paper-listbox.html" rel="import">
+	<link href="../bower_components/paper-item/paper-item.html" rel="import">
+	<!-- Element Imports -->
+</head>
+
+<dom-module id="netflix-search-criteria">
+  <style>
+    /* CSS rules for your element */
+  </style>
+  <template>
+    <paper-material elevation="1">
+	 <paper-dropdown-menu id="mymenu" label="What do you know about the content?" attr-for-selected="value"
+	 selected="{{selItem}}" on-iron-select="_itemSelected">
+		<paper-listbox class="dropdown-content">
+		<paper-item>Movie Name</paper-item>
+		<paper-item>Actor</paper-item>
+		<paper-item>Director</paper-item>
+		</paper-listbox>
+	 </paper-dropdown-menu>
+	 <template is="dom-if" if="{{show}}">
+	 <paper-input label="Enter Search content" on-keydown="_search">
+	 </paper-input>
+	 <h1>{{content}}</h1>
+	 </template>
+  </template>
+</dom-module>
+<script>	
+  Polymer({
+    is: "netflix-search-criteria",
+	_itemSelected : function(e) {
+	console.log("Coming here" + e.target.selectedItem.innerText);
+		this.selItem = e.target.selectedItem.innerText;
+		if(this.selItem == 'Movie Name' || this.selItem == 'Actor'
+		|| this.selItem == 'Director')
+		{
+		  this.show = true;
+		}
+  },
+  _search : function(e) {
+  if(e.keyCode === 13)
+  {
+  var cont = e.target.value;
+	 this.criteria = this.selItem + "=" + cont;
+	 console.log("Coming here" + this.criteria);
+  }	
+  },
+    properties: {
+	      selItem: {
+		  type: String,
+		  value: ""
+		  },
+		  show: {
+		  type: Boolean,
+		  value: false
+		  },
+		 criteria: {
+			type: String,
+			notify: true,
+			reflecToAttribute: true
+		}
+     },
+    ready: function(e){
+        
+    }
+  });
+</script>

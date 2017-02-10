@@ -1,0 +1,21 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <link href="src/netflix-search.html" rel="import">
+	<title>Search Netflix</title>
+    <meta name="description" content="If it's on Netflix, we will find it">
+    <link rel="icon" href="/images/movies.jpg">
+	<script>
+	// Load pre-caching Service Worker
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/service-worker.js');
+        });
+      }
+	</script>
+</head>
+<body>
+ <netflix-search></netflix-search>
+</body>
+</html>
