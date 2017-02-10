@@ -55,9 +55,21 @@
 		this.attrVal = params[1];	
      },
     processParams: function (attr, attrVal) {
-        return {
+	if(this.attr === 'Actor')
+	{
+	return {
 		actor : attrVal
 		};
+	} else if( this.attr === 'Director') {
+	   return {
+		director : attrVal
+		};
+	} else {
+	  return {
+		title : attrVal
+		};
+	}
+        
      },
 	ready: function(){
 	 var params = this.criteria.split("=");
