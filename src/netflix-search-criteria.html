@@ -18,7 +18,7 @@
 	 <paper-dropdown-menu id="mymenu" label="What do you know about the content?" attr-for-selected="value"
 	 selected="{{selItem}}" on-iron-select="_itemSelected">
 		<paper-listbox class="dropdown-content">
-		<paper-item>Movie Name</paper-item>
+		<paper-item>Title</paper-item>
 		<paper-item>Actor</paper-item>
 		<paper-item>Director</paper-item>
 		</paper-listbox>
@@ -36,7 +36,7 @@
 	_itemSelected : function(e) {
 	console.log("Coming here" + e.target.selectedItem.innerText);
 		this.selItem = e.target.selectedItem.innerText;
-		if(this.selItem == 'Movie Name' || this.selItem == 'Actor'
+		if(this.selItem == 'Title' || this.selItem == 'Actor'
 		|| this.selItem == 'Director')
 		{
 		  this.show = true;

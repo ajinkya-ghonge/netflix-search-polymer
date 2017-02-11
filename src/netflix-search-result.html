@@ -23,6 +23,10 @@
      <div>Title: <span>{{item.show_title}} Year: {{item.release_year}} </span></div>
 	 <div> <img src="{{item.poster}}" style="width:304px;height:228px;">
   </template>
+  <template is="dom-if" if="{{resultsObj.show_title}}" elevation="1">
+     <div>Title: <span>{{resultsObj.show_title}} Year: {{resultsObj.release_year}} </span></div>
+	 <div> <img src="{{resultsObj.poster}}" style="width:304px;height:228px;">
+  </template>
   </template>
 </dom-module>
 <script>
@@ -31,6 +35,10 @@
     properties: {
          results:{
 		 type: Array
+		 },
+		 resultsObj:{
+		 type: Object,
+		 notify: true
 		 },
 		 criteria:{
 		 type: String,
@@ -48,7 +56,13 @@
 		 }
         },
 	handleResponse: function (data) {
-        this.results = data.detail.response;
+	if(this.attr === 'Title')
+	{
+	this.resultsObj = data.detail.response;
+	console.log("Coming here for title : " + this.resultsObj.show_title);
+	} else {
+	 this.results = data.detail.response;
+	}
      },
 	_isCriteriaChanged: function (criteria) {
         var params = this.criteria.split("=");
