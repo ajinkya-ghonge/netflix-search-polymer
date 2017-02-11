@@ -11,6 +11,7 @@
     /* CSS rules for your element */
   </style>
   <template>
+  <h1>{{criteria}}</h1>
    <iron-ajax
     id="requestRepos"
     url="https://community-netflix-roulette.p.mashape.com/api.php"
@@ -50,9 +51,12 @@
         this.results = data.detail.response;
      },
 	_isCriteriaChanged: function (criteria) {
-        var params = criteria.split("=");
+        var params = this.criteria.split("=");
 		this.attr = params[0];
-		this.attrVal = params[1];	
+		
+		this.attrVal = params[1];
+		console.log("Coming here the criteria changed " + this.attr.length + " Content " + this.attrVal.length);
+		this.$.requestRepos.generateRequest();
      },
     processParams: function (attr, attrVal) {
 	if(this.attr === 'Actor')
